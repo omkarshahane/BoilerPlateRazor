@@ -1,0 +1,154 @@
+﻿@page
+@model WebApp.Pages.Employee.AddEmployeeModel
+@{
+    Layout = "~/Pages/Shared/_DesktopLayout.cshtml";
+}
+<div class="d-flex flex-column gap-48">
+    <header class="header">
+        <h1>Add Employee</h1>
+    </header>
+    <form action="" method="post" class="d-flex flex-column gap-16">
+        <div class="d-flex gap-48">
+            <div class="flex-grow-1 d-flex flex-column gap-8">
+                <label for="employee-number" class="text-primary-dark">
+                    <span class="bodySmallBold">Employee number </span>
+                    <span class="bodySmall">(required)</span>
+                </label>
+                <div class="d-flex flex-column gap-8">
+                    <input type="text" id="employee-number" class="form-control body padding-trbl-16" aria-required="true" placeholder=""  asp-for="EmployeeRequest.EmployeeNumber">
+                    <span class="text-invalid bodySmallBold" asp-validation-for="EmployeeRequest.EmployeeNumber"></span>
+                </div>
+            </div>
+            <div class="flex-grow-1 d-flex flex-column gap-8">
+                <label for="employee-category" class="text-primary-dark">
+                    <span class="bodySmallBold">Employee category </span>
+                    <span class="bodySmall">(required)</span>
+                </label>
+                <div class="d-flex flex-column gap-8">
+                    <select class="body ec-select text-primary-dark" aria-label="Select Category" asp-for="EmployeeRequest.EmployeeCategory">
+                        <option value="">Choose category</option>
+                        <option value="engineer">Engineer</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                    <span class="text-invalid bodySmallBold" asp-validation-for="EmployeeRequest.EmployeeCategory"></span>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex gap-48">
+            <div class="flex-grow-1 d-flex flex-column gap-8">
+                <label for="employee-firstname" class="text-primary-dark">
+                    <span class="bodySmallBold">First name  </span>
+                    <span class="bodySmall">(required)</span>
+                </label>
+                <div class="d-flex flex-column gap-8">
+                    <input type="text" id="employee-firstname" class="form-control body padding-trbl-16" placeholder=""  asp-for="EmployeeRequest.FirstName">
+                    <span class="text-invalid bodySmallBold" asp-validation-for="EmployeeRequest.FirstName"></span>
+                </div>
+            </div>
+            <div class="flex-grow-1 d-flex flex-column gap-8">
+                <label for="employee-lastname" class="text-primary-dark">
+                    <span class="bodySmallBold">Last Name </span>
+                    <span class="bodySmall">(required)</span>
+                </label>
+                <div class="d-flex flex-column gap-8">
+                    <input type="text" id="employee-lastname" class="form-control body padding-trbl-16" aria-required="true" placeholder="" asp-for="EmployeeRequest.LastName">
+                    <span class="text-invalid bodySmallBold" asp-validation-for="EmployeeRequest.LastName"></span>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex gap-48">
+            <div class="flex-grow-1 d-flex flex-column gap-8">
+                <label for="employee-email" class="text-primary-dark">
+                    <span class="bodySmallBold">Email  </span>
+                    <span class="bodySmall">(required)</span>
+                </label>
+                <div class="d-flex flex-column gap-8">
+                    <input type="email" id="employee-email" class="form-control body padding-trbl-16" aria-required="true" placeholder=""  asp-for="EmployeeRequest.Email">
+                    <span class="text-invalid bodySmallBold" asp-validation-for="EmployeeRequest.Email"></span>
+                </div>
+            </div>
+            <div class="flex-grow-1 d-flex flex-column gap-8">
+                <label for="employee-contact" class="text-primary-dark">
+                    <span class="bodySmallBold">Contact number </span>
+                    <span class="bodySmall">(required)</span>
+                </label>
+                <div class="d-flex flex-column gap-8">
+                    <input type="text" id="employee-contact" class="form-control body padding-trbl-16" aria-required="true" placeholder="" asp-for="EmployeeRequest.ContactNumber">
+                    <span class="text-invalid bodySmallBold" asp-validation-for="EmployeeRequest.ContactNumber"></span>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex gap-48">
+            <div class="flex-grow-1 d-flex flex-column gap-8">
+                <label for="employee-home-address" class="text-primary-dark">
+                    <span class="bodySmallBold">Home Address  </span>
+                    <span class="bodySmall">(required)</span>
+                </label>
+                <div class="d-flex flex-column gap-8">
+                    <input type="text" id="employee-home-address" class="form-control body padding-trbl-16" aria-required="true" placeholder=""  asp-for="EmployeeRequest.HomeAddress">
+                    <span class="text-invalid bodySmallBold" asp-validation-for="EmployeeRequest.HomeAddress"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-check form-switch padding-tb-16">
+            <label class="form-check-label bodySmall" for="is-escalator-engineer">Is this employee an escalator engineer</label>
+            <input class="form-check-input" type="checkbox" role="switch" id="is-escalator-engineer" asp-for="EmployeeRequest.IsEscalatorEngineer" aria-label="Is this employee an escalator engineer">
+        </div>
+        <div class="form-check form-switch padding-tb-16">
+            <label class="form-check-label bodySmall" for="is-compressed-or-part-time">Is the employee part-time or on compressed hours?</label>
+            <input class="form-check-input" type="checkbox" role="switch" id="is-compressed-or-part-time" aria-label="Is the employee part-time" asp-for="EmployeeRequest.IsPartTimeOrCompressed">
+        </div>
+        <div class="d-flex gap-24 padding-tb-48 ">
+            <button type="button" onclick="onCancelClick()" class="ec-secondary-btn w-auto">
+                <span class="bodySmallBold text-primary-dark" >Cancel</span>
+            </button>
+            <button type="submit" class="es-button bodyBold text-white text-decoration-none d-inline-flex"> Add </button>
+        </div>
+    </form>
+
+
+
+    <div class="popup" id="popup">
+        <div data-popup="inner">
+            <div class="admin-modal d-none" id="keepDiscardChanges">
+                <div class="d-flex flex-column gap-48">
+                    <h2 class="px-4 text-center">Are you sure you want to discard changes?</h2>
+                    <div class="d-flex gap-24 justify-content-between">
+                        <a href="javascript:;" class="ec-secondary-btn" data-action="close-admin-modal">
+                            <span class="bodySmallBold text-primary-dark">No, keep editing</span>
+                        </a>
+                        <a href="javascript:;" class="es-button bodyBold text-white text-decoration-none d-inline-flex w-159-5">
+                            Yes, discard
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="admin-modal d-none" id="activateDeactivateEmployee">
+                <div class="d-flex flex-column gap-48">
+                    <h2 class="px-4 text-center">Are you sure you want to deactivate this employee?</h2>
+                    <p class="body text-center">Name Name</p>
+                    <div class="d-flex gap-24 justify-content-between">
+                        <a href="javascript:;" class="ec-secondary-btn" data-action="close-admin-modal">
+                            <span class="bodySmallBold text-primary-dark">Cancel</span>
+                        </a>
+                        <a href="javascript:;" class="es-button bodyBold text-white text-decoration-none d-inline-flex w-159-5"> Deactivate </a>
+                    </div>
+                </div>
+            </div>
+            <div class="admin-modal d-none" id="resendPasswordEmployee">
+                <div class="d-flex flex-column gap-48">
+                    <h2 class="px-5 text-center">Are you sure you want to resend password for</h2>
+                    <p class="body text-center">Name Name</p>
+                    <div class="d-flex gap-24 justify-content-between">
+                        <a href="javascript:;" class="ec-secondary-btn" data-action="close-admin-modal">
+                            <span class="bodySmallBold text-primary-dark">Cancel</span>
+                        </a>
+                        <a href="javascript:;" class="es-button bodyBold text-white text-decoration-none d-inline-flex w-159-5"> Send </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- main -->
+</div>
+<script src="~/js/scripts/employee/addemployee.js"></script>

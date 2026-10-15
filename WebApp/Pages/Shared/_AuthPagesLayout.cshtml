@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>@ViewBag.Title</title>
+    <!-- <link rel="icon" type="image/x-icon" href="../dist/images/favicon.png" /> -->
+    <link type="text/css" href="../css/styles.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="wrapper">
+        <main class="mobile-screen center-aligned">
+            <div class="login">
+                <div class="frame-30 bg-primary-light">
+                    <h1 class="text-center text-white">@ViewData["Heading"]</h1>
+                </div>
+                <div class="frame-29 bg-white">
+                    <figure class="text-center">
+                        <img src="../images/Artwork.svg" alt="Logo" class="img-fluid" />
+                    </figure>
+                    @RenderBody()
+                </div>
+            </div>
+        </main>
+        <!-- main -->
+    </div>
+    <!-- wrapper -->
+
+    <script src="~/js/jquery.min.js"></script>
+    <script src="../js/bootstrap-5.3.3/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/scripts.min.js"></script>
+
+</body>
+</html>

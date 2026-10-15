@@ -1,0 +1,123 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>Escalator</title>
+    <!-- <link rel="icon" type="image/x-icon" href="../dist/images/favicon.png" /> -->
+    <link type="text/css" href="../css/styles.min.css" rel="stylesheet" />
+
+    <script src="~/js/jquery.min.js"></script>
+    <link type="text/css" href="../js/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
+    <link type="text/css" href="../js/owlcarousel/assets/owl.theme.default.css" rel="stylesheet" />
+
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <main>
+            <div class="admin-container d-flex">
+                <div class="sidebar">
+                    <div class="d-flex flex-column gap-32">
+                        <a href="/Employee/EmployeeList" class="sidebar__logo" aria-label="Logo">
+                            <img src="../images/Artwork-white.svg" alt="Logo" />
+                        </a>
+                        <nav class="sidebar__nav" aria-label="Sidebar Navigation">
+                            <a href="/Employee/EmployeeList" class="bodyBold sidebar__nav-item text-white" aria-current="page" id="peopleTab" aria-label="People">
+                                <span class="icon-ec-people" aria-hidden="true"></span>
+                                <span>People</span>
+                            </a>
+                        </nav>
+                    </div>
+                    <div class="d-flex flex-column gap-32">
+                        <div class="padding-lr-28 d-flex flex-column gap-8">
+                            @{
+                                var firstName = HttpContextAccessor.HttpContext.User.Claims
+                                .Where(c => c.Type == "FirstName")
+                                .Select(c => c.Value)
+                                .FirstOrDefault();
+
+                                var lastName = HttpContextAccessor.HttpContext.User.Claims
+                                .Where(c => c.Type == "LastName")
+                                .Select(c => c.Value)
+                                .FirstOrDefault();
+
+                                var fullName = $"{firstName} {lastName}";
+
+                                var email = HttpContextAccessor.HttpContext.User.Claims
+                                .Where(c => c.Type == "Email")
+                                .Select(c => c.Value)
+                                .FirstOrDefault();
+                            }
+
+                            <p class="bodyBold text-white">@fullName</p>
+                            <p class="bodyExtraSmall text-white">@email</p>
+
+                        </div>
+                        <div class="sidebar__logout">
+                            <a href="/Auth/Logout" class="sidebar__logout-link bodyBold text-white">
+                                <span class="icon-ec-logout"></span>
+                                <span>Logout</span>
+                            </a>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-content">
+                    @RenderBody()
+                </div>
+            </div>
+       
+        </main>
+        <!-- main -->
+    </div>
+
+    <!-- wrapper -->
+
+    <script src="~/js/jquery.min.js"></script>
+    <script src="../js/bootstrap-5.3.3/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/owlcarousel/owl.carousel.min.js"></script>
+    <script src="../js/jquerySimpleTimepicker/jquery.simpletimepicker.js"></script>
+    <script src="../js/scripts.min.js"></script>
+
+    <script>
+
+
+        function sortTable(columnIndex) {
+            const table = document.getElementById("tableBody");
+            const rows = Array.from(table.rows);
+            const isAscending = table.getAttribute("data-sort-order") === "asc";
+
+            rows.sort((rowA, rowB) => {
+                const cellA = rowA.cells[columnIndex].textContent.trim().toLowerCase();
+                const cellB = rowB.cells[columnIndex].textContent.trim().toLowerCase();
+
+                if (cellA < cellB) return isAscending ? -1 : 1;
+                if (cellA > cellB) return isAscending ? 1 : -1;
+                return 0;
+            });
+
+            // Update table order and append sorted rows
+            table.setAttribute("data-sort-order", isAscending ? "desc" : "asc");
+            table.innerHTML = "";
+            rows.forEach(row => table.appendChild(row));
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            var currentPath = window.location.pathname;
+            var pathSegments = currentPath.split('/').filter(segment => segment); // This removes empty segments
+            var navItems = document.querySelectorAll('.sidebar__nav-item');
+            navItems.forEach(function (navItem) {
+                var href = navItem.getAttribute('href');
+                var cleanHref = href.split('?')[0].split('/').filter(segment => segment);
+                if (pathSegments[0] === cleanHref[0]) {
+                    navItem.classList.add('active');
+                } else {
+                    navItem.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>

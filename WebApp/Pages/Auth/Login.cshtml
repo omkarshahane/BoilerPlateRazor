@@ -1,0 +1,71 @@
+﻿@page
+@model WebApp.Pages.Auth.LoginModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Pages/Shared/_AuthPagesLayout.cshtml";
+    ViewData["Heading"] = "Sign in";
+}
+
+<form method="post">
+    <div class="d-flex flex-column gap-24">
+        <!-- Email Field -->
+        <div class="d-flex flex-column gap-8">
+            <label asp-for="LoginInput.Email" class="text-primary-dark">
+                <span class="bodySmallBold">Email</span>
+                <span class="bodySmall">(required)</span>
+            </label>
+            <div>
+                <input type="email"
+                       id="exampleInputEmail1"
+                       asp-for="LoginInput.Email"
+                       class="form-control body padding-trbl-16"
+                       aria-required="true"
+                       aria-describedby="emailHelp"
+                       placeholder="Enter your email"
+                       required />
+            </div>
+            <span class="text-invalid bodySmallBold" id="emailSpan" asp-validation-for="LoginInput.Email"></span>
+        </div>
+
+        <!-- Password Field -->
+        <div class="d-flex flex-column gap-8">
+            <label asp-for="LoginInput.Password" for="password" class="text-primary-dark">
+                <span class="bodySmallBold">Password</span>
+                <span class="bodySmall">(required)</span>
+            </label>
+            <div>
+                <input type="password"
+                       asp-for="LoginInput.Password"
+                       id="password"
+                       class="form-control body padding-trbl-16"
+                       aria-required="true"
+                       placeholder="Enter your password"
+                       required />
+            </div>
+            <span class="text-invalid bodySmallBold" id="passwordSpan" asp-validation-for="LoginInput.Password"></span>
+        </div>
+
+        <!-- Show Password Toggle -->
+        <div class="form-check form-switch">
+            <label class="form-check-label bodySmall" for="passwordSwitch">Show password</label>
+            <input class="form-check-input"
+                   type="checkbox"
+                   role="switch"
+                   id="passwordSwitch"
+                   aria-label="Toggle password visibility" />
+        </div>
+
+        <!-- Forgot Password Link -->
+        <div class="text-end">
+            <a href="/Auth/ForgotPassword" class="bodySmall text-decoration-none text-primary-light" aria-label="Forgot Password">
+                Forgot Password?
+            </a>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="mb-5">
+            <button type="submit" class="es-button bodyBold text-white text-decoration-none w-100">Sign In</button>
+        </div>
+    </div>
+</form>
+<script src="~/js/scripts/auth/login.js"></script>

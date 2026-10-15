@@ -1,0 +1,35 @@
+﻿@page
+@model WebApp.Pages.Common.PageNotFoundModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>Escalator</title>
+    <!-- <link rel="icon" type="image/x-icon" href="../dist/images/favicon.png" /> -->
+    <link type="text/css" href="../css/styles.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="wrapper">
+        <main>
+            <div class="page-not-found">
+                <div class="m-auto d-flex flex-column gap-16 align-items-center justify-content-center">
+                    <img src="../src/images/Artwork-white.svg" width="200" alt="logo" />
+                    <h1 class="text-white">404</h1>
+                    <span class="icon-ec-search"></span>
+                    <h2 class="text-white">Page Not Found</h2>
+                    <a href="../" class="ec-secondary-btn mt-3">
+                        <span class="bodySmallBold text-primary-dark">Go Home</span>
+                    </a>
+                </div>
+            </div>
+        </main>
+        <!-- main -->
+    </div>
+    <!-- wrapper -->
+</body>
+</html>

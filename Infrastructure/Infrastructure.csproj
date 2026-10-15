@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>11</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\**" />
+    <Compile Remove="Script\**" />
+    <EmbeddedResource Remove="Migrations\**" />
+    <EmbeddedResource Remove="Script\**" />
+    <None Remove="Migrations\**" />
+    <None Remove="Script\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Configurations\AspNetUserConfiguration.cs" />
+    <Compile Remove="Configurations\AspNetUserLoginConfiguration.cs" />
+    <Compile Remove="Configurations\AspNetUserRoleConfiguration.cs" />
+    <Compile Remove="Configurations\AspNetUserTokensConfiguration.cs" />
+    <Compile Remove="Context\ApplicationDbContext.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" />
+    <PackageReference Include="EntityFrameworkCore.Exceptions.SqlServer" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
+    <PackageReference Include="NsDepCop">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Remove="D:\Bolier Plate\Razor Page%28CQRS%29\Infrastructure\config.nsdepcop" />
+  </ItemGroup>
+</Project>

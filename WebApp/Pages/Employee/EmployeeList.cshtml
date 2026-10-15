@@ -1,0 +1,180 @@
+﻿@page
+@model WebApp.Pages.Employee.EmployeeListModel
+@{
+    Layout = "~/Pages/Shared/_DesktopLayout.cshtml";
+}
+<header class="header">
+    <h1>Employee list</h1>
+    <button class="es-button bodyBold text-white text-decoration-none d-inline-flex" id="addEmployeeBtn" onclick="addEmployee()">  Add employee </button>
+    <script src="../js/Scripts/Employee.js"></script>
+</header>
+<div class="search-form">
+    <div class="message ec-success" id="successMessageDiv" style="display: none;">
+        <p class="d-flex gap-8 align-items-center my-2">
+            <span class="icon-ec-tick"> </span>
+            <span class="bodySmallBold" id="successMessage">@TempData["SuccessMessage"]</span>
+            <input type="hidden" id="tempSuccessMessage" value="@TempData["SuccessMessage"]" />
+        </p>
+    </div>
+    <form method="get" id="employeeForm" action="" class="ms-auto">
+        <div class="table-controls">
+            <div class="entries-selector">
+                <span class="bodySmallBold">Show</span>
+                <select name="PageSize" id="pageSize" onchange="ChangePageSize()" class="bodySmall">
+                    <option value="10" selected="selected">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                </select>
+                <span class="bodySmallBold">entries</span>
+            </div>
+            <div class="search-box__wrapper">
+                <input type="search" name="SearchTerm" class="bodySmall search-box" placeholder="Search" oninput="onSearch()">
+                <span class="icon-ec-search"></span>
+            </div>
+        </div>
+    </form>
+</div>
+<table class="ec-table table">
+    <thead>
+        <tr>
+            <th scope="col" onclick="sortTable(0)" style="cursor: pointer;">
+                <div class="d-flex align-items-center">
+                    <span class="bodySmall fw-700">Name</span> <span class="icon-ec-order"></span>
+                </div>
+            </th>
+            <th scope="col" onclick="sortTable(1)" style="cursor: pointer;">
+                <div class="d-flex align-items-center">
+                    <span class="bodySmall fw-700">Category</span> <span class="icon-ec-order"></span>
+                </div>
+            </th>
+            <th scope="col" class="bodySmall fw-700">Email</th>
+            <th scope="col" class="bodySmall fw-700">Telephone</th>
+            <th scope="col" class="bodySmall fw-700"></th>
+        </tr>
+    </thead>
+    <!-- In your HTML -->
+    <!-- In your HTML -->
+    <tbody id="tableBody">
+        <tr class="template-row" style="display: none;">
+            <td>
+                <span class="bodySmall text-primary-dark">{fullName}</span>
+            </td>
+            <td>
+                <span class="bodySmall text-primary-dark">{employeeCategory}</span>
+            </td>
+            <td>
+                <span class="bodySmall text-primary-dark">{emailAddress}</span>
+            </td>
+            <td>
+                <span class="bodySmall text-primary-dark">{phoneNumber}</span>
+            </td>
+            <td class="action-controls">
+                <!-- Active Employee Controls -->
+                <div class="active-controls">
+                    <a href="#" class="text-decoration-none padding-trbl-8 d-inline-block edit-link">
+                        <span class="icon-ec-edit text-primary-light"></span>
+                    </a>
+                    <a href="javascript:" class="text-decoration-none padding-trbl-8 d-inline-block deactivate-link"
+                       data-action="open-admin-modal">
+                        <span class="icon-ec-deleted text-primary-light" data-action="deactivateEmployee"></span>
+                    </a>
+                    <a href="javascript:" class="text-decoration-none padding-trbl-8 d-inline-block resend-password-link"
+                       data-action="open-admin-modal">
+                        <span class="icon-ec-unlock text-primary-light" data-action="resendPassword"></span>
+                    </a>
+                </div>
+                <!-- Inactive Employee Controls -->
+                <div class="inactive-controls" style="display: none;">
+                    <a href="#" class="text-decoration-none padding-trbl-8 d-inline-block reactivate-link">
+                        <span class="icon-ec-key text-primary-light"></span>
+                    </a>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5">
+
+                <div class="pagination d-flex align-items-center justify-content-between padding-trbl-16">
+
+                    <a href="javascript:;" class="d-flex gap-8 text-decoration-none align-items-center ">
+                        <div class="es-button bodyBold text-white text-decoration-none d-inline-flex">
+                            <span class="icon-ec-left-arrow"></span>
+                        </div>
+                        <span class="bodySmallBold text-primary-dark">Previous</span>
+                    </a>
+
+                    <div class="d-flex gap-1">
+                        <a href="javascript:;" class="ec-secondary-btn active text-decoration-none w-auto">
+                            <span class="bodySmallBold text-primary-dark padding-trbl-8">1</span>
+                        </a>
+                        <a href="javascript:;" class="ec-secondary-btn text-decoration-none w-auto">
+                            <span class="bodySmallBold text-primary-dark padding-trbl-8">2</span>
+                        </a>
+                        <div href="javascript:;" class="d-flex align-items-center">
+                            <span class="bodySmallBold text-primary-dark">...</span>
+                        </div>
+                        <a href="javascript:;" class="ec-secondary-btn text-decoration-none w-auto">
+                            <span class="bodySmallBold text-primary-dark padding-trbl-8">5</span>
+                        </a>
+                        <a href="javascript:;" class="ec-secondary-btn text-decoration-none w-auto">
+                            <span class="bodySmallBold text-primary-dark padding-trbl-8">6</span>
+                        </a>
+                    </div>
+                    <a href="javascript:;" class="d-flex gap-8 text-decoration-none align-items-center">
+                        <span class="bodySmallBold text-primary-dark">Next</span>
+                        <div class="es-button bodyBold text-white text-decoration-none d-inline-flex">
+                            <span class="icon-ec-right-arrow"></span>
+                        </div>
+                    </a>
+                </div>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+<div class="popup" id="popup">
+    <div data-popup="inner">
+        <div class="admin-modal d-none" id="keepDiscardChanges">
+            <div class="d-flex flex-column gap-48">
+                <h2 class="px-4 text-center">Are you sure you want to discard changes?</h2>
+                <div class="d-flex gap-24 justify-content-between">
+                    <a href="javascript:;" class="ec-secondary-btn" data-action="">
+                        <span class="bodySmallBold text-primary-dark">No, keep editing</span>
+                    </a>
+                    <a href="javascript:;" class="es-button bodyBold text-white text-decoration-none d-inline-flex w-159-5">
+                        Yes, discard
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="admin-modal d-none" id="activateDeactivateEmployee">
+            <div class="d-flex flex-column gap-48">
+                <h2 class="px-4 text-center">Are you sure you want to deactivate this employee?</h2>
+                <p class="body text-center" id="deletePopupName">Name Name</p>
+                <div class="d-flex gap-24 justify-content-between">
+                    <a href="javascript:;" class="ec-secondary-btn" data-action="close-admin-modal">
+                        <span class="bodySmallBold text-primary-dark">Cancel</span>
+                    </a>
+                    <button id="deactivateEmployeeBtn" class="es-button bodyBold text-white text-decoration-none d-inline-flex w-159-5"> Deactivate </button>
+                </div>
+            </div>
+        </div>
+        <div class="admin-modal d-none" id="resendPasswordEmployee">
+            <div class="d-flex flex-column gap-48">
+                <h2 class="px-5 text-center">Are you sure you want to resend password for</h2>
+                <p class="body text-center" id="resendPasswordPopupName">Name Name</p>
+                <div class="d-flex gap-24 justify-content-between">
+                    <a href="javascript:;" class="ec-secondary-btn" data-action="close-admin-modal">
+                        <span class="bodySmallBold text-primary-dark">Cancel</span>
+                    </a>
+                    <button id="resendPasswordBtn" class="es-button bodyBold text-white text-decoration-none d-inline-flex w-159-5"> Send </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ec-loader d-flex">
+    <span class="icon-ec-status-pending"></span>
+</div>
+
